@@ -1,0 +1,142 @@
+/* ================================
+   Modal Container (Overlay)
+=================================== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6); /* dark background with transparency */
+  backdrop-filter: blur(6px);     /* blur effect behind modal */
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+/* Show modal with flex layout */
+.modal.show {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* ================================
+   Close Button for Modal
+=================================== */
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1100;
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--text-color);
+  opacity: 0.6;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+/* Hover effect for close button */
+.modal-close:hover {
+  opacity: 1;
+  background: var(--bg-color);
+  box-shadow: 0 0 6px var(--accent-color);
+}
+
+/* ================================
+   Game Wrapper (Flex Layout)
+=================================== */
+#gameWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: 100%;
+  width: 100%;
+  position: relative;
+}
+
+/* ================================
+   Game Canvas
+=================================== */
+canvas {
+  background: rgba(255, 255, 255, 0.05); /* subtle white overlay */
+  box-shadow: 0 0 20px var(--color-primary); /* outer glow effect */
+  border-radius: 50%;
+  touch-action: none;
+  display: block;
+  width: 90vmin;
+  height: 90vmin;
+  max-width: 600px;
+  max-height: 600px;
+}
+
+/* ================================
+   Control Buttons Container
+=================================== */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ================================
+   Highscore Display
+=================================== */
+.highscores {
+  color: var(--color-foreground);
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+#highscoreList {
+  color: var(--highscore-color);
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* ================================
+   Responsive Adjustments (Mobile)
+=================================== */
+@media (max-width: 768px) {
+  #gameWrapper {
+    gap: 0.5rem;
+  }
+
+  .controls {
+    flex-direction: column;
+  }
+
+  .modal .modal-close {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .modal-close {
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .highscores {
+    font-size: 1rem;
+  }
+
+  #highscoreList {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+}

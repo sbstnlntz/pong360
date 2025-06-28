@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic Setup -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Coming Soon</title>
+
+  <!-- iOS Compatibility -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/static/main.css">
+  <link rel="stylesheet" href="/static/home.css">
+  <link rel="stylesheet" href="/static/game.css">
+</head>
+<body>
+
+  <!-- Animated Starfield Background -->
+  <div id="starfield"></div>
+
+  <!-- Intro Section -->
+  <div id="intro">
+    <h1>{{ texts['intro_title'] }}</h1>
+    <p class="subnote"><span class="typewriter">{{ texts['intro_subnote'] }}</span></p>
+    <button id="openBtn" class="game-btn">{{ texts['start_button'] }}</button>
+  </div>
+
+  <!-- Theme Toggle Button -->
+  <div id="theme-toggle">
+    <button id="themeBtn" class="icon-btn square-btn" title="Switch theme">D</button>
+  </div>
+
+  <!-- Game Modal Window -->
+  <div class="modal" id="gameModal">
+    <button class="modal-close icon-btn square-btn" onclick="closeModal()">X</button>
+    <div id="highscoreList" class="highscores"></div>
+    <canvas id="pongCanvas"></canvas>
+    <div class="controls">
+      <button id="mainBtn">Start</button>
+    </div>
+  </div>
+
+  <!-- Page Footer -->
+  <footer id="site-footer">
+    <div class="footer-center">{{ texts['footer_copyright'] }}</div>
+    <button id="impressumBtn" class="footer-impressum icon-btn square-btn" title="Impressum">I</button>
+  </footer>
+
+  <!-- Impressum Modal -->
+  <div id="impressumModal" class="modal">
+    <button class="modal-close icon-btn square-btn" onclick="closeImpressum()">X</button>
+    <div class="modal-content">
+      <h2>{{ texts['impressum_title'] }}</h2>
+      <p>{{ texts['impressum_body']|safe }}</p>
+    </div>
+  </div>
+
+  <!-- JavaScript Files -->
+  <script src="/static/main.js"></script>
+  <script src="/static/game.js"></script>
+
+  <!-- Inline Scripts -->
+  <script>
+    // Theme Management
+    const themes = ["light", "dark", "colorful"];
+    let currentThemeIndex = 1;
+
+    const themeIcons = {
+      light: "L",
+      dark: "D",
+      colorful: "C"
+    };
+
+    function applyTheme(index) {
+      const theme = themes[index];
+      document.documentElement.setAttribute("data-theme", theme);
+      document.getElementById("themeBtn").textContent = themeIcons[theme];
+      draw?.(); // Redraw if draw() is defined
+    }
+
+    document.getElementById("themeBtn").addEventListener("click", () => {
+      currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+      applyTheme(currentThemeIndex);
+    });
+
+    applyTheme(currentThemeIndex);
+
+    // Starfield Effect
+    const starfield = document.getElementById("starfield");
+
+    function createStar() {
+      const star = document.createElement("div");
+      star.classList.add("star");
+
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight;
+      const size = Math.random() * 1.5 + 1;
+      const duration = Math.random() * 4 + 2;
+      const delay = Math.random() * 5;
+
+      Object.assign(star.style, {
+        left: `${x}px`,
+        top: `${y}px`,
+        width: `${size}px`,
+        height: `${size}px`,
+        animationDuration: `${duration}s`,
+        animationDelay: `${delay}s`,
+      });
+
+      starfield.appendChild(star);
+    }
+
+    // Generate stars
+    for (let i = 0; i < 220; i++) {
+      createStar();
+    }
+  </script>
+
+</body>
+</html>
